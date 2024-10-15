@@ -39,29 +39,116 @@ class HashMap {
     let index = this.hash(key);
     let bucket = this.bucket[index];
 
-    if (bucket) {
-      const entry = bucket.find(([k]) => k === key);
-      return entry ? entry[1] : null;
-    }
-    return null;
+    if (!bucket) return null;
+
+    const entry = bucket.find(([k]) => k === key);
+    return entry ? entry[1] : null;
   }
 
   has(key) {
     const index = this.hash(key);
     const bucket = this.bucket[index];
-    if (bucket) {
-      return bucket.some(([k]) => k === key);
-    }
-    return false;
+
+    if (!bucket) return false;
+
+    return bucket.some(([k]) => k === key);
   }
 
-  resize() {}
+  remove(key) {
+    const index = this.hash(key);
+    const bucket = this.bucket[index];
+
+    if (!bucket) return false;
+
+    const entryIndex = bucket.findIndex(([k]) => k === key);
+    if (entryIndex === -1) return false;
+
+    bucket.splice(entryIndex, 1);
+    this.size--;
+    return true;
+  }
+
+  length() {
+    return this.size;
+  }
+
+  clear() {
+    this.bucket = new Array(8);
+    this.size = 0;
+  }
+
+  keys() {
+    const arrayKeys = [];
+
+    for (const bucket of this.bucket) {
+      if (bucket) {
+        for (const [key] of bucket) {
+          arrayKeys.push(key);
+        }
+      }
+    }
+    return arrayKeys;
+  }
+
+  values() {
+    const arrayVal = [];
+
+    for (const bucket of this.bucket) {
+      if (bucket) {
+        for (const [key, val] of bucket) {
+          arrayVal.push(val);
+        }
+      }
+    }
+    return arrayVal;
+  }
+
+  entries() {
+    const arrayEntries = [];
+
+    for (const bucket of this.bucket) {
+      if (bucket) {
+        for (const entry of bucket) {
+          arrayEntries.push(entry);
+        }
+      }
+    }
+    return arrayEntries;
+  }
+
+  resize() {
+    const oldBuckets = this.bucket;
+    this.bucket = new Array(oldBuckets.length * 2);
+    this.size = 0;
+
+    for (const bucket of oldBuckets) {
+      if (bucket) {
+        for (const [key, value] of bucket) {
+          this.set(key, value);
+        }
+      }
+    }
+  }
 }
 
-let newMap = new HashMap();
+let test = new HashMap();
 
-newMap.set("apple", "buah");
-newMap.set("apple", "buah");
-newMap.set("key", "benda");
+test.set("apple", "red");
+test.set("banana", "yellow");
+test.set("carrot", "orange");
+test.set("dog", "brown");
+test.set("elephant", "gray");
+test.set("frog", "green");
+test.set("grape", "purple");
+test.set("hat", "black");
+test.set("ice cream", "white");
+test.set("jacket", "blue");
+test.set("kite", "pink");
+test.set("lion", "golden");
 
-console.log(newMap.has("ad"));
+test.set("hats", "black");
+test.set("ices cream", "white");
+test.set("jackets", "blue");
+test.set("kites", "pink");
+test.set("lions", "golden");
+console.log(test);
