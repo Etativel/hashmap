@@ -151,4 +151,10 @@ test.set("ices cream", "white");
 test.set("jackets", "blue");
 test.set("kites", "pink");
 test.set("lions", "golden");
+
+console.log(test.get("hats"));
+console.log(test.keys());
+// test.clear();
+console.log(test.values());
 console.log(test);
+console.log(test.entries());
