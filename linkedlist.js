@@ -146,28 +146,6 @@ class LinkedList {
   }
 }
 
-let createNode = new LinkedList();
+// let createNode = new LinkedList();
 
-createNode.append("dog");
-createNode.append("cat");
-// createNode.prepend("Human");
-
-console.log(createNode);
-console.log(createNode.size());
-console.log(createNode.head());
-console.log(createNode.tail());
-console.log(createNode.at(3));
-
-// createNode.pop();
-// createNode.pop();
-// createNode.pop();
-// console.log(createNode.contains("Hu"));
-console.log(createNode.toString());
-console.log(createNode.find("cat"));
-
-console.log(createNode.insertAt(0, "Giraffe"));
-console.log(createNode.insertAt(1, "Giraffe"));
-
-createNode.removeAt(0);
-createNode.removeAt(2);
-console.log(createNode.toString());
+export { LinkedList };
